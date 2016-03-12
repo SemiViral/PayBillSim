@@ -1,15 +1,20 @@
-﻿using System;
+using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
+using System;
 using Assets.BillSystem;
+
 
 public class BillManager : MonoBehaviour {
 
     public static BillManager instance;
 
+  
+
 	public static List<Bill> Bills = new List<Bill>();
 
 	public void Start()
+ 
     {
         instance = this;
     }
@@ -27,6 +32,14 @@ public class BillManager : MonoBehaviour {
 		Bills.Add(new Bill(type));
 	}
 
+ 
+   /*
+    IEnumerable<Bill> bills =
+        from Bill in Bills   
+        where Bill.Type == BillType.Electricity
+
+        */
+ 
 	public static bool IsBillDay(DayOfWeek day) {
 		return day == DayOfWeek.Tuesday ||
 			   day == DayOfWeek.Thursday;
@@ -35,5 +48,9 @@ public class BillManager : MonoBehaviour {
 	public static int GetBillCount(BillType type) {
 		return Bills.Select(bill => bill.Type == type).ToList().Count;
 	}
+    public static List<Bill> GetBillsByType(BillType type)
+    {
+        return Bills.Select(bill => bill.Type == type).ToList();
+    }
 }
  
